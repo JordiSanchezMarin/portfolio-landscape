@@ -569,7 +569,7 @@ function App() {
               {profile.availability}
             </span>
           </div>
-          <ResumeDownload className="mobile-resume-download" label="PDF" />
+          <ResumeDownload className="mobile-resume-download" label="CV" />
         </header>
 
         <main className="scene" aria-labelledby="hero-title">
