@@ -169,6 +169,11 @@ function Landscape() {
           <stop offset="72%" stopColor="#f4bf22" />
           <stop offset="100%" stopColor="#c67b0c" />
         </radialGradient>
+        <radialGradient id="astronautGlow">
+          <stop offset="0%" stopColor="#d9f8ff" stopOpacity=".62" />
+          <stop offset="42%" stopColor="#77cadd" stopOpacity=".3" />
+          <stop offset="100%" stopColor="#77cadd" stopOpacity="0" />
+        </radialGradient>
         <clipPath id="earthClip">
           <circle cx="1278" cy="202" r="116" />
         </clipPath>
@@ -296,22 +301,6 @@ function Landscape() {
         </g>
       </g>
 
-      <g className="rover-smoke" filter="url(#smokeBlur)" aria-hidden="true">
-        <circle className="smoke-puff smoke-puff-1" cx="151" cy="684" r="12" />
-        <circle className="smoke-puff smoke-puff-2" cx="129" cy="677" r="17" />
-        <circle className="smoke-puff smoke-puff-3" cx="103" cy="665" r="22" />
-      </g>
-
-      <g className="lunar-rover" transform="translate(0 92)">
-        <ellipse cx="226" cy="647" rx="87" ry="19" fill="#111721" opacity=".6" />
-        <circle cx="175" cy="625" r="25" fill="#1c2530" stroke="#8d969c" strokeWidth="8" />
-        <circle cx="270" cy="625" r="25" fill="#1c2530" stroke="#8d969c" strokeWidth="8" />
-        <path d="M160 585h123l-18 39h-87Z" fill="url(#metal)" />
-        <path d="M190 584v-34h52v34M242 550l28-25M270 525l9 1" fill="none" stroke="#b7bec1" strokeWidth="5" />
-        <path d="M198 557h36v22h-36Z" fill="#274b60" />
-        <circle cx="165" cy="584" r="7" fill="#ffcb72" />
-      </g>
-
       <g className="rocket-smoke" filter="url(#smokeBlur)" aria-hidden="true">
         <circle className="smoke-puff smoke-puff-1" cx="1342" cy="706" r="17" />
         <circle className="smoke-puff smoke-puff-2" cx="1324" cy="724" r="24" />
@@ -355,9 +344,33 @@ function Landscape() {
         </g>
       </g>
 
+      <g className="rover-smoke" filter="url(#smokeBlur)" aria-hidden="true">
+        <circle className="smoke-puff smoke-puff-1" cx="151" cy="684" r="12" />
+        <circle className="smoke-puff smoke-puff-2" cx="129" cy="677" r="17" />
+        <circle className="smoke-puff smoke-puff-3" cx="103" cy="665" r="22" />
+      </g>
+
+      <g className="lunar-rover" transform="translate(0 92)">
+        <ellipse cx="226" cy="647" rx="87" ry="19" fill="#111721" opacity=".6" />
+        <circle cx="175" cy="625" r="25" fill="#1c2530" stroke="#8d969c" strokeWidth="8" />
+        <circle cx="270" cy="625" r="25" fill="#1c2530" stroke="#8d969c" strokeWidth="8" />
+        <path d="M160 585h123l-18 39h-87Z" fill="url(#metal)" />
+        <path d="M190 584v-34h52v34M242 550l28-25M270 525l9 1" fill="none" stroke="#b7bec1" strokeWidth="5" />
+        <path d="M198 557h36v22h-36Z" fill="#274b60" />
+        <circle cx="165" cy="584" r="7" fill="#ffcb72" />
+      </g>
+
+      <ellipse
+        className="explorer-halo"
+        cx="820"
+        cy="655"
+        rx="180"
+        ry="215"
+        fill="url(#astronautGlow)"
+      />
       <image
         className="lunar-explorer"
-        href="/jordi-astronaut.png?v=4"
+        href="/jordi-astronaut.png?v=7"
         x="710"
         y="500"
         width="220"
@@ -554,6 +567,19 @@ function App() {
             <span>
               <strong>{profile.name}</strong>
               <small>{profile.role}</small>
+              <span className="identity-mobile-meta">
+                <span className="mobile-location">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                  {profile.location}
+                </span>
+                <span className="availability">
+                  <i aria-hidden="true" />
+                  {profile.availability}
+                </span>
+              </span>
             </span>
           </div>
           <div className="header-meta">
@@ -575,17 +601,21 @@ function App() {
         <main className="scene" aria-labelledby="hero-title">
           <Landscape />
 
-          <p className="astronaut-welcome">
-            <strong>Hello!</strong>
-            Welcome to my portfolio. Choose a section to explore my journey.
-          </p>
+          <div className="mobile-astronaut" aria-hidden="true">
+            <img src="/jordi-astronaut.png?v=7" alt="" />
+          </div>
 
-          <section className="hero-copy">
+          <section className="hero-copy" id="profile-introduction">
             <h1 id="hero-title">
               Exploring new frontiers
               <em>in frontend development.</em>
             </h1>
-            <p>{profile.shortBio}</p>
+            <p className="hero-summary">{profile.shortBio}</p>
+            <p className="mobile-hero-message">
+              Hello and welcome! I’m Jordi, a Frontend Engineer passionate
+              about learning, collaboration, and creating thoughtful digital
+              experiences. I’m delighted to share my journey with you.
+            </p>
           </section>
 
           <div className="hotspots" aria-label="Explore CV sections">

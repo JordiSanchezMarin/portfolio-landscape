@@ -1,6 +1,6 @@
 ---
 name: git-management
-description: Use whenever creating or validating branches, writing commit messages, committing changes, pushing branches, or opening pull requests in this repository. Enforce the repository branch naming and Conventional Commit rules.
+description: Use whenever creating or validating branches, writing commit messages, committing changes, pushing branches, or opening pull requests in this repository. Enforce the repository branch naming, Conventional Commit, and single-commit pull request rules.
 ---
 
 # Git management
@@ -68,19 +68,35 @@ Examples:
 - `fix(layout): prevent hotspot overlap`
 - `chore(resume): update downloadable PDF`
 
+## One commit per pull request
+
+- A pull request branch must contain exactly one commit that is not in its base
+  branch.
+- Create the first commit normally.
+- For every later change on the same pull request branch, stage the change and
+  run `git commit --amend --no-edit` instead of creating another commit.
+- After amending an already-pushed commit, update the remote with
+  `git push --force-with-lease`; never use an unrestricted force push.
+- If a pull request branch already contains multiple commits, squash them into
+  one before the next push.
+- Only break the one-commit rule when the user explicitly requests an exception.
+
 ## Before committing
 
 1. Confirm the current branch complies with the branch naming rules.
 2. Review the staged diff and exclude unrelated files.
 3. Run the smallest relevant validation for the change.
 4. Check the proposed commit subject against every rule above.
-5. Do not commit when relevant validation is failing.
+5. Count commits relative to the pull request base and choose a normal commit or
+   `git commit --amend --no-edit` accordingly.
+6. Do not commit when relevant validation is failing.
 
 ## Pushing and pull requests
 
 - Push the current branch to `origin` and set its upstream on the first push.
-- Never force-push unless the user explicitly requests it and understands the
-  consequences.
+- Use `--force-with-lease` only when an amended single-commit pull request branch
+  must replace its previous remote commit.
+- Never use `--force`.
 - Target `main` when opening a pull request unless the user specifies another
   base branch.
 - Do not merge a pull request automatically unless the user explicitly asks.
